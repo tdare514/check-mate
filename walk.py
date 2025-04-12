@@ -6,29 +6,25 @@ class BasicMove:
         self.right = right
 
     def move_forward(self, coordinates):
-        x = coordinates[0]
-        y = coordinates[1]
+        x, y = coordinates
         new_coord = (x, y + self.forward)
 
         return new_coord
 
     def move_backward(self, coordinates):
-        x = coordinates[0]
-        y = coordinates[1]
+        x, y = coordinates
         new_coord = (x, y + self.backward)
 
         return new_coord
 
     def move_left(self, coordinates):
-        x = coordinates[0]
-        y = coordinates[1]
+        x, y = coordinates
         new_coord = (x + self.left, y)
 
         return new_coord
 
     def move_right(self, coordinates):
-        x = coordinates[0]
-        y = coordinates[1]
+        x, y = coordinates
         new_coord = (x + self.right, y)
 
         return new_coord
@@ -36,17 +32,17 @@ class BasicMove:
     # direction can either be forward or backward
     def move_diagonal_left(self, coordinates, direction):
         temp_coord = self.move_left(coordinates)
-        if direction == "forward":
-            return self.move_forward(temp_coord)
-        elif direction == "backward":
-            return self.move_backward(temp_coord)
+        self.move_in(temp_coord, direction)
 
     def move_diagonal_right(self, coordinates, direction):
         temp_coord = self.move_right(coordinates)
+        self.move_in(temp_coord, direction)
+
+    def move_in(self, coord, direction):
         if direction == "forward":
-            return self.move_forward(temp_coord)
+            return self.move_forward(coord)
         elif direction == "backward":
-            return self.move_backward(temp_coord)
+            return self.move_backward(coord)
 
 
 class MoveWhite(BasicMove):
