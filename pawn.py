@@ -1,7 +1,7 @@
 from walk import MovePiece
 
 
-class Peon(MovePiece):
+class Pawn(MovePiece):
     def __init__(self, move_func, start_coord, curr_board):
         super().__init__(move_func, start_coord, curr_board)
         self.can_capture = False
@@ -10,9 +10,9 @@ class Peon(MovePiece):
 
     def action(self):
         self.make_move(self.move_list)
-        self.peon_capture(["diagonal_left1", "diagonal_right1"])
+        self.pawn_capture(["diagonal_left1", "diagonal_right1"])
 
-    def peon_capture(self, move_list):
+    def pawn_capture(self, move_list):
         self.can_capture = True
         self.make_move(move_list)
 
