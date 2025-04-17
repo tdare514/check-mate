@@ -32,11 +32,11 @@ class BasicMove:
     # direction can either be forward or backward
     def move_diagonal_left(self, coordinates, direction):
         temp_coord = self.move_left(coordinates)
-        self.move_in(temp_coord, direction)
+        return self.move_in(temp_coord, direction)
 
     def move_diagonal_right(self, coordinates, direction):
         temp_coord = self.move_right(coordinates)
-        self.move_in(temp_coord, direction)
+        return self.move_in(temp_coord, direction)
 
     def move_in(self, coord, direction):
         if direction == "forward":

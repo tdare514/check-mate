@@ -1,10 +1,12 @@
-from walk import MoveBlack, MoveWhite
-from knight import Knight
-from pawn import Pawn
-from king import King
-from queen import Queen
-from bishop import Bishop
-from rook import Rook
+from .walk import MoveBlack, MoveWhite
+from .knight import Knight
+from .pawn import Pawn
+from .king import King
+from .queen import Queen
+from .bishop import Bishop
+from .rook import Rook
+
+
 class Pieces:
     def __init__(self, piece, start_coord, player_color, curr_board):
         self.new_coords = None
@@ -31,5 +33,6 @@ class Pieces:
 
         elif piece == 'R':
             self.new_coords = Rook(self.move_func, start_coord, curr_board).get_new_coords()
+
         else:
             pass

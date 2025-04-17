@@ -1,4 +1,4 @@
-from walk import MovePiece
+from .walk import MovePiece
 
 
 class Knight(MovePiece):

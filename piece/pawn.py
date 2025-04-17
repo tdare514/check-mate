@@ -1,4 +1,4 @@
-from walk import MovePiece
+from .walk import MovePiece
 
 
 class Pawn(MovePiece):
@@ -6,19 +6,19 @@ class Pawn(MovePiece):
         super().__init__(move_func, start_coord, curr_board)
         self.can_capture = False
         self.move_list = ["forward"]
-        self.en_passant = [["forward", "forward"]]
+        # self.en_passant = [["forward", "forward"]]
         self.action()
 
     def action(self):
         self.make_move(self.move_list)
-        self.make_compound_move(self.en_passant)
+        # self.make_compound_move(self.en_passant)
         self.pawn_capture(["diagonal_left1", "diagonal_right1"])
 
     def pawn_capture(self, move_list):
         self.can_capture = True
         self.make_move(move_list)
 
-    # doesnt require move_until but signatures need to be the same
+    # doesn't require move_until but signatures need to be the same
     def add_move(self, new_coordinates, move_until=False):
         if not self.out_of_bounds(new_coordinates):
             captured_piece = self.capture(new_coordinates)

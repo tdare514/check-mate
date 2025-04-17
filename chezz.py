@@ -1,8 +1,5 @@
-import pprint
-
-from pieces import Pieces
+from piece.pieces import Pieces
 import copy
-import json
 
 
 class Chezz:
@@ -86,14 +83,14 @@ class Chezz:
                 "moves": Pieces(piece_position[0], piece_position[1], self.player_color, curr_board).new_coords}}
 
     def promotion(self, curr_board):
-        peon_list = []
+        pawn_list = []
         for key, value in curr_board.items():
             if value[0] == self.player_color and value[1] == 'P':
                 if self.end_of_board(key):
-                    peon_list.append(key)
+                    pawn_list.append(key)
 
-        if peon_list:
-            for piece in peon_list:
+        if pawn_list:
+            for piece in pawn_list:
                 curr_board[piece] = f'{self.player_color}Q'
 
     def end_of_board(self, key):

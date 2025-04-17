@@ -1,4 +1,4 @@
-from walk import MovePiece
+from .walk import MovePiece
 
 
 class King(MovePiece):
@@ -10,5 +10,3 @@ class King(MovePiece):
 
     def action(self):
         self.make_move(self.move_list)
-
-    # implement special moves
