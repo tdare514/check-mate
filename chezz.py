@@ -1,9 +1,5 @@
-import pprint
-
-from pieces import Pieces
-from zombie import Zombie
+from piece.pieces import Pieces
 import copy
-import json
 
 
 class Chezz:
@@ -43,63 +39,18 @@ class Chezz:
     def generate_board(self, og_coord, move_list, piece_type):
         if not move_list:
             return
+        for move in move_list:
+            curr_board = copy.deepcopy(self.state)
+            piece_info = curr_board[og_coord]
+            new_spot = move[0]
 
-        if piece_type == 'C':
-            for move in move_list:
-                curr_board = copy.deepcopy(self.state)
-                new_spot = move[0]
+            # make a regular move
+            curr_board[og_coord] = ' '
+            curr_board[new_spot] = piece_info
 
-                # if there was a captured piece it means something was shot so remove all shot pieces
-                if move[1]:
-                    for i in move[2:]:
-                        curr_board[i] = ' '
-                else:
-                    piece_info = curr_board[og_coord]
-                    curr_board[og_coord] = ' '
-                    curr_board[new_spot] = piece_info
+            self.promotion(curr_board)
 
-                self.contagion(curr_board)
-                self.promotion(curr_board)
-
-                self.make_board_file(curr_board)
-
-        elif piece_type == 'F':
-            for move in move_list:
-                curr_board = copy.deepcopy(self.state)
-                new_spot = move[0]
-
-                # if theres a captured piece it means something was flung, destroy both flung and captured piece
-                # if no captured piece but still an og and new coord then a piece was flung normally so treat
-                if move[1]:
-                    curr_board[move[2]] = ' '
-                    curr_board[new_spot] = ' '
-                elif move[2] is not None:
-                    piece_info = curr_board[move[2]]
-                    curr_board[move[2]] = ' '
-                    curr_board[new_spot] = piece_info
-                else:
-                    piece_info = curr_board[og_coord]
-                    curr_board[og_coord] = ' '
-                    curr_board[new_spot] = piece_info
-
-                self.contagion(curr_board)
-                self.promotion(curr_board)
-
-                self.make_board_file(curr_board)
-        else:
-            for move in move_list:
-                curr_board = copy.deepcopy(self.state)
-                piece_info = curr_board[og_coord]
-                new_spot = move[0]
-
-                # make a regular move
-                curr_board[og_coord] = ' '
-                curr_board[new_spot] = piece_info
-
-                self.contagion(curr_board)
-                self.promotion(curr_board)
-
-                self.make_board_file(curr_board)
+            self.make_board_file(curr_board)
 
     def get_current_pieces(self):
         player_pieces = []
@@ -131,31 +82,16 @@ class Chezz:
             piece_position[1]: {
                 "moves": Pieces(piece_position[0], piece_position[1], self.player_color, curr_board).new_coords}}
 
-    def contagion(self, curr_board):
-        player_zombies = []
-        for key, value in curr_board.items():
-            if value[0] == self.player_color and value[1] == 'Z':
-                player_zombies.append(key)
-        contagion_list = []
-        # print(player_zombies)
-        for piece_position in player_zombies:
-            contagion_list.append(Pieces(None, piece_position, self.player_color, curr_board).contagion_list)
-
-        if contagion_list:
-            for piece_list in contagion_list:
-                for piece in piece_list:
-                    curr_board[piece] = f'{self.player_color}Z'
-
     def promotion(self, curr_board):
-        peon_list = []
+        pawn_list = []
         for key, value in curr_board.items():
             if value[0] == self.player_color and value[1] == 'P':
                 if self.end_of_board(key):
-                    peon_list.append(key)
+                    pawn_list.append(key)
 
-        if peon_list:
-            for piece in peon_list:
-                curr_board[piece] = f'{self.player_color}Z'
+        if pawn_list:
+            for piece in pawn_list:
+                curr_board[piece] = f'{self.player_color}Q'
 
     def end_of_board(self, key):
         x, y = key
@@ -170,7 +106,7 @@ class Chezz:
             if value != ' ':
                 converted_board.update({self.coord_to_string[key]: value})
 
-        board_file = open(f"board.{self.new_board_num:03}", "w")
+        board_file = open(f"board{self.new_board_num:03}.txt", "w")
 
         board_file.write(f"{self.next_player} {self.index_one} {self.index_two} {self.index_three}\n")
 

@@ -27,4 +27,3 @@ board.update(eval(new_dict))
 chezzTurn = Chezz(board, line_one)
 # chezzTurn.print_board()
 chezzTurn.edges()
-
