@@ -1,4 +1,5 @@
-from chezz import Chezz
+from chess import Chess
+from gameplay import BoardGame
 import sys
 
 a8=(0,7); b8=(1,7); c8=(2,7); d8=(3,7); e8=(4,7); f8=(5,7); g8=(6,7); h8=(7,7);
@@ -10,20 +11,23 @@ a3=(0,2); b3=(1,2); c3=(2,2); d3=(3,2); e3=(4,2); f3=(5,2); g3=(6,2); h3=(7,2);
 a2=(0,1); b2=(1,1); c2=(2,1); d2=(3,1); e2=(4,1); f2=(5,1); g2=(6,1); h2=(7,1);
 a1=(0,0); b1=(1,0); c1=(2,0); d1=(3,0); e1=(4,0); f1=(5,0); g1=(6,0); h1=(7,0);
 
-# read state of input board
-# colour, i1, i2, i3
-line_one = list(sys.stdin.readline().split())
-board = { (i,j): ' ' for i in range(0,8) for j in range(0,8) }
+# # read state of input board
+# # colour, i1, i2, i3
+# line_one = list(sys.stdin.readline().split())
+# board = { (i,j): ' ' for i in range(0,8) for j in range(0,8) }
+#
+#
+# new_dict = ""
+# for pair in sys.stdin.readlines()[:-3]:
+#     line = pair.strip()
+#     new_dict += line
+#
+# # update state of board to match input board
+# board.update(eval(new_dict))
 
+# chezzTurn = Chess(board, line_one)
+# # chezzTurn.print_board()
+# chezzTurn.edges()
 
-new_dict = ""
-for pair in sys.stdin.readlines()[:-3]:
-    line = pair.strip()
-    new_dict += line
-
-# update state of board to match input board
-board.update(eval(new_dict))
-
-chezzTurn = Chezz(board, line_one)
-# chezzTurn.print_board()
-chezzTurn.edges()
+test = BoardGame()
+test.display_board()

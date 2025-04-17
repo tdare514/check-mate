@@ -2,7 +2,7 @@ from piece.pieces import Pieces
 import copy
 
 
-class Chezz:
+class Chess:
     def __init__(self, board, line_one):
         self.state = board
         self.player_color = line_one[0]
